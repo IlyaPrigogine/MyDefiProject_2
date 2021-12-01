@@ -1,4 +1,5 @@
-import {deployments, getNamedAccounts} from 'hardhat';
+import {deployments, ethers, getNamedAccounts} from 'hardhat';
+import {Greeter} from "../typechain";
 
 const {execute, read} = deployments;
 
@@ -6,10 +7,9 @@ async function main() {
 
     const {owner} = await getNamedAccounts();
 
-    // read
-    const supply = await read('Dai', 'totalSupply');
-    console.log("Dai totalSupply:", supply.toString());
-    
+    const Greeter = await ethers.getContract<Greeter>('Greeter');
+    console.log(`Greeter.greet(): ${await Greeter.greet()}`);
+
 }
 
 
